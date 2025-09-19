@@ -1,0 +1,14 @@
+[project]
+name = "fastapi_boilerplate"
+version = "0.1.0"
+description = "Boilerplate code for FastAPI apps built at G7CR"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard]>=0.116.1",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.13.1",
+]
