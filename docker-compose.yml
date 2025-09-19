@@ -1,0 +1,9 @@
+---
+services:
+  fastapi:
+    image: boilerplate:1.0
+    ports:
+      - 8000:8000
+    volumes:
+      - ./logs:/app/logs
+    restart: on-failure:5
