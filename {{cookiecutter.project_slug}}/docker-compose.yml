@@ -1,7 +1,7 @@
 ---
 services:
   fastapi:
-    image: boilerplate:1.0
+    image: "{{cookiecutter.project_slug}}1.0"
     ports:
       - 8000:8000
     volumes:

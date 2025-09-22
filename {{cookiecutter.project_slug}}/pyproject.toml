@@ -1,7 +1,7 @@
 [project]
-name = "fastapi_boilerplate"
+name = "{{ cookiecutter.project_slug }}"
 version = "0.1.0"
-description = "Boilerplate code for FastAPI apps built at G7CR"
+description = "FastAPI server for {{ cookiecutter.project_name }} - G7CR"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
