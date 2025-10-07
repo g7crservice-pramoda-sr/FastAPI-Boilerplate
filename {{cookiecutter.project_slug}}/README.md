@@ -38,9 +38,9 @@ python -m venv .venv
 # source .venv/bin/activate
 pip install -r requirements.txt
 ```
----
 
 {%- if cookiecutter.use_docker == "yes" -%}
+---
 
 ## Build with Docker
 
