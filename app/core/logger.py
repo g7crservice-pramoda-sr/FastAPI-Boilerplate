@@ -1,31 +1,37 @@
-import os
 import logging
+import os
+
+LOG_DIR = "./logs"
 
 
-def setup_logger(log_dir: str = "./logs") -> logging.Logger:
+def setup_logger() -> logging.Logger:
     """
-    Configure and return the root logger with separate handlers.
+    Configure and return the application logger (singleton).
     """
-    # Ensure logs directory exists
-    os.makedirs(log_dir, exist_ok=True)
+    os.makedirs(LOG_DIR, exist_ok=True)
 
-    logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)  # Capture all levels
+    logger = logging.getLogger("app_logger")
+
+    # If logger already configured, return it
+    if logger.handlers:
+        return logger
+
+    logger.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(
         fmt="%(asctime)s || %(levelname)s || %(message)s", datefmt="%Y-%m-%d %H:%M:%S"
     )
 
     # Handlers
-    debug_handler = logging.FileHandler(os.path.join(log_dir, "debug.log"))
+    debug_handler = logging.FileHandler(os.path.join(LOG_DIR, "debug.log"))
     debug_handler.setLevel(logging.DEBUG)
     debug_handler.setFormatter(formatter)
 
-    info_handler = logging.FileHandler(os.path.join(log_dir, "info.log"))
+    info_handler = logging.FileHandler(os.path.join(LOG_DIR, "info.log"))
     info_handler.setLevel(logging.INFO)
     info_handler.setFormatter(formatter)
 
-    error_handler = logging.FileHandler(os.path.join(log_dir, "error.log"))
+    error_handler = logging.FileHandler(os.path.join(LOG_DIR, "error.log"))
     error_handler.setLevel(logging.ERROR)
     error_handler.setFormatter(formatter)
 
@@ -33,14 +39,14 @@ def setup_logger(log_dir: str = "./logs") -> logging.Logger:
     console_handler.setLevel(logging.INFO)
     console_handler.setFormatter(formatter)
 
-    # Clear existing handlers to avoid duplication in reloads (e.g., uvicorn)
-    if logger.handlers:
-        logger.handlers.clear()
-
-    # Add handlers
+    # Add handlers only once
     logger.addHandler(debug_handler)
     logger.addHandler(info_handler)
     logger.addHandler(error_handler)
     logger.addHandler(console_handler)
 
     return logger
+
+
+# Create a single shared logger instance
+logger = setup_logger()
