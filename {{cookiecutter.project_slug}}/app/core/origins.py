@@ -4,18 +4,17 @@ from fastapi.middleware import Middleware
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.root.connector import root_route
-
-origins = ["*"]
+from app.core.config import config
 
 
 def make_middleware() -> List[Middleware]:
     middleware = [
         Middleware(
             CORSMiddleware,
-            allow_origins=origins,
+            allow_origins=config.ALLOWED_HOSTS,
             allow_credentials=True,
-            allow_methods=["GET", "POST", "PUT", "DELETE"],
-            allow_headers=["*"],
+            allow_methods=config.ALLOWED_METHODS,
+            allow_headers=config.ALLOWED_HEADERS,
         ),
     ]
     return middleware

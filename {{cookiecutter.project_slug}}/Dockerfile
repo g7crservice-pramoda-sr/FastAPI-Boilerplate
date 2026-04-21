@@ -1,8 +1,6 @@
-FROM python:3.13.7-slim
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm-slim
 
 WORKDIR /app
-
-RUN pip install uv
 
 COPY pyproject.toml uv.lock /app/
 
