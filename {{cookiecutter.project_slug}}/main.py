@@ -35,13 +35,16 @@ app = create_app()
 if __name__ == "__main__":
     import uvicorn
 
-    def get_host_port(url: str) -> tuple[str, str]:
+    def get_host_port(url: str) -> tuple[str, int]:
         if url.startswith("http://"):
             url = url[7:]
         elif url.startswith("https://"):
             url = url[8:]
-        return url.split(":")
+        host, port = url.split(":")
+        return host, int(port)
 
     host, port = get_host_port(config.BACKEND_URL)
-
-    uvicorn.run(app, host=host, port=port, reload=True)
+    if config.DEBUG:
+        uvicorn.run("main:app", host=host, port=port, reload=True)
+    else:
+        uvicorn.run(app, host=host, port=port)
