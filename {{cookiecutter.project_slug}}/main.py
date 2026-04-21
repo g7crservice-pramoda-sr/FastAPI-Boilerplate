@@ -44,4 +44,4 @@ if __name__ == "__main__":
 
     host, port = get_host_port(config.BACKEND_URL)
 
-    uvicorn.run("main:app", host=host, port=port, reload=True)
+    uvicorn.run(app, host=host, port=port, reload=True)
